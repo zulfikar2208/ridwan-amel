@@ -38,7 +38,7 @@ function generateLink() {
   nama = capitalizeNama(nama);
   const encodedNama = encodeURIComponent(nama);
 
-  linkHasil = `http://192.168.60.146:5500/index.html?to=${encodedNama}`;
+  linkHasil = `https://ridwan-amel.vercel.app/?to=${encodedNama}`;
   document.getElementById("hasil").innerText = linkHasil;
 
   const pesan = buildPesan(nama, linkHasil);
