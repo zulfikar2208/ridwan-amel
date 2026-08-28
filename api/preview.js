@@ -70,7 +70,7 @@ module.exports = (req, res) => {
               content="Kepada Yth. ${namaAman} — Undangan Pernikahan Amel & Ridwan">
 
         <meta property="og:image"
-              content="https://ridwan-amel.vercel.app/img/preview.png?v=2">
+              content="https://ridwan-amel.vercel.app/img/preview.webp?v=3">
 
         <meta property="og:url"
               content="https://ridwan-amel.vercel.app/?to=${encodeURIComponent(namaTamu)}">
@@ -85,7 +85,7 @@ module.exports = (req, res) => {
               content="Kepada Yth. ${namaAman}">
 
 <meta name="twitter:image"
-      content="https://ridwan-amel.vercel.app/img/preview.png?v=2">    `;
+      content="https://ridwan-amel.vercel.app/img/preview.webp?v=3">    `;
 
     html = html.replace(
         "</head>",
