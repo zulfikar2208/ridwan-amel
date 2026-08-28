@@ -2,33 +2,34 @@ const musik = document.getElementById("musikLatar");
 
 if (musik) {
 
-    // Ambil posisi terakhir
-    const posisiTerakhir = localStorage.getItem("posisiMusik");
+    // =========================
+    // AMBIL POSISI TERAKHIR
+    // =========================
+    const posisi = sessionStorage.getItem("posisiMusik");
 
-    if (posisiTerakhir) {
-        musik.currentTime = parseFloat(posisiTerakhir);
+    if (posisi) {
+        musik.currentTime = parseFloat(posisi);
     }
 
-    // Simpan posisi lagu setiap 1 detik
+    // =========================
+    // SIMPAN POSISI LAGU
+    // =========================
     setInterval(() => {
         if (!musik.paused) {
-            localStorage.setItem(
+            sessionStorage.setItem(
                 "posisiMusik",
                 musik.currentTime
             );
         }
-    }, 1000);
+    }, 500);
 
-    // Simpan juga sebelum pindah halaman
+    // =========================
+    // SIMPAN SEBELUM PINDAH
+    // =========================
     window.addEventListener("beforeunload", () => {
-        localStorage.setItem(
+        sessionStorage.setItem(
             "posisiMusik",
             musik.currentTime
         );
-    });
-
-    // Coba lanjutkan musik
-    musik.play().catch(() => {
-        console.log("Menunggu interaksi pengguna untuk memutar musik.");
     });
 }
