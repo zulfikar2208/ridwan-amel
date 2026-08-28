@@ -1,0 +1,228 @@
+    <!DOCTYPE html>
+    <html lang="id">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style/generator.css">
+    
+    <style>
+        label {
+        display: block;
+        text-align: left;
+        font-size: 13px;
+        color: #666;
+        margin-bottom: 4px;
+        margin-top: 10px;
+        }
+
+        /* Wrapper select + badge dalam satu baris */
+        .select-wrap {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 12px;
+        }
+
+        .select-wrap select {
+        flex: 1;
+        padding: clamp(10px, 2vw, 14px);
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: clamp(14px, 2vw, 16px);
+        font-family: Arial, sans-serif;
+        background: white;
+        color: #333;
+        appearance: none;
+        margin-bottom: 0;
+        }
+
+        /* Badge kategori */
+        .badge {
+        display: inline-block;
+        padding: 5px 14px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: bold;
+        white-space: nowrap;
+        flex-shrink: 0;
+        }
+
+        .badge-biasa {
+        background: #e8e8e8;
+        color: #555;
+        }
+
+        .badge-vip {
+        background: #dbeeff;
+        color: #1a5fa8;
+        border: 1px solid #a0c8f0;
+        }
+
+        .badge-vvip {
+        background: #fff3cd;
+        color: #7a4f00;
+        border: 1px solid #f5c842;
+        }
+
+        /* Preview link */
+        .hasil {
+        margin-top: 12px;
+        background: #f5f5f5;
+        padding: clamp(10px, 2vw, 14px);
+        border-radius: 8px;
+        word-break: break-all;
+        font-size: clamp(12px, 1.8vw, 14px);
+        text-align: left;
+        line-height: 1.5;
+        color: #444;
+        min-height: 42px;
+        }
+
+        /* Textarea pesan */
+        #templatePesan {
+        width: 100%;
+        min-height: 280px;
+        margin-top: 10px;
+        padding: 16px 18px;
+        border: none;
+        outline: none;
+        border-radius: 14px;
+        background: #f8f8f8;
+        box-shadow: inset 0 0 0 1px #ddd;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        line-height: 1.8;
+        color: #333;
+        resize: none;
+        overflow: auto;
+        white-space: pre-wrap;
+        word-break: break-word;
+        text-align: left;
+        }
+
+        /* Grup tombol 2 kolom */
+        .action-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 10px;
+        }
+
+        .action-group button {
+        margin-top: 0;
+        }
+
+        /* Tombol copy link — warna hijau */
+        .btn-copy-link {
+        background: #2d7b46 !important;
+        }
+
+        .btn-copy-link:hover {
+        background: #1f5a33 !important;
+        }
+
+        h3 {
+        margin: 18px 0 6px;
+        font-size: clamp(14px, 3vw, 16px);
+        text-align: left;
+        }
+
+        /* Divider */
+        .divider {
+        border: none;
+        border-top: 1px solid #eee;
+        margin: 18px 0 4px;
+        }
+
+        /* Toast notif */
+        #toast {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #2d7b46;
+        color: #fff;
+        padding: 9px 22px;
+        border-radius: 999px;
+        font-size: 13px;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+        z-index: 999;
+        white-space: nowrap;
+        }
+
+        #toast.show { opacity: 1; }
+
+        @media (max-width: 359px) {
+        .select-wrap { flex-direction: column; align-items: flex-start; }
+        .select-wrap select { width: 100%; }
+        .action-group { grid-template-columns: 1fr; }
+        }
+    </style>
+    </head>
+    <body>
+
+    <div class="card">
+
+        <h2>Generator Link Undangan</h2>
+        <p style="font-size:13px;color:#888;margin-bottom:18px;text-align:center;">
+        Amel & Ridwan — 04 Oktober 2026
+        </p>
+
+        <!-- NAMA TAMU -->
+        <label for="nama">Nama Tamu</label>
+        <input
+        type="text"
+        id="nama"
+        placeholder="Masukkan nama tamu"
+        />
+
+        <!-- KATEGORI TAMU -->
+
+        <!-- TOMBOL GENERATE -->
+        <button onclick="generateLink()">Buat Link</button>
+
+        <!-- HASIL LINK -->
+        <label style="margin-top:14px;">Link Undangan</label>
+        <div class="hasil" id="hasil">Link akan muncul di sini</div>
+
+        <button class="copy btn-copy-link" onclick="copyLink()">Copy Link</button>
+
+        <hr class="divider">
+
+        <!-- TEMPLATE PESAN WA -->
+        <h3>Template Pesan WhatsApp</h3>
+
+        <textarea
+        id="templatePesan"
+        readonly
+        placeholder="Pesan undangan otomatis muncul di sini setelah buat link...">
+        </textarea>
+
+        <div class="action-group">
+        <button onclick="copyPesan()">Copy Pesan</button>
+        <button onclick="kirimWhatsapp()">Kirim WhatsApp</button>
+        </div>
+
+    </div><!-- /.card -->
+
+    <div id="toast"></div>
+
+    <script src="./js/generator.js"></script>
+    <script>
+        // Override alert() dengan toast agar lebih rapi
+        const _origAlert = window.alert;
+        window.alert = function(msg) {
+        const toast = document.getElementById("toast");
+        toast.textContent = msg;
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 2300);
+        };
+
+        // Jalankan badge awal
+        updateBadge();
+    </script>
+
+    </body>
+    </html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="./style/index.css">
+    <link rel="stylesheet" href="./style/animasi.css">
+
+    <title>Amel & Ridwan</title>
+</head>
+
+<body>
+
+    <div class="pembungkus">
+
+        <div class="music-cover" id="musicCover">
+
+            <div class="cover-inner">
+
+                <img src="./img/BACKGROUND.webp" alt="Background">
+
+                <div class="cover-text">
+                    <p class="top-text">THE WEDDING OF</p>
+                    <h1>Amel &amp; Ridwan</h1>
+                </div>
+
+                <!-- AMPLOP -->
+                <div class="music-btn-wrap">
+
+                    <img 
+                        src="./img/AMPLOP.webp" 
+                        alt="Buka Undangan" 
+                        class="music-btn-img" 
+                        id="musicBtn"
+                    >
+
+                    <span 
+                        class="music-btn-img__label" 
+                        id="musicBtnLabel"
+                    >
+                        Tap to Open
+                    </span>
+
+                    <!-- NAMA TAMU -->
+                    <div class="guest" id="guestWrap">
+                        <p>Kepada Yth.</p>
+
+                        <h3 id="namaTamu">
+                            Bapak/Ibu/Saudara/i
+                        </h3>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <audio 
+            id="musikLatar" 
+            src="./audio/nadin.mp3" 
+            loop 
+            preload="auto"
+        ></audio>
+
+
+        <!-- =========================
+             HERO
+        ========================== -->
+        <section class="hero">
+
+            <img 
+                class="hero__latar" 
+                src="./img/BACKGROUND.webp" 
+                alt="Background"
+            >
+
+            <div class="hero__gradasi"></div>
+
+            <div class="hero__konten">
+
+                <img 
+                    class="hero__bingkai" 
+                    src="./img/NAME.webp" 
+                    alt="Amel & Ridwan"
+                >
+
+                <p class="hero__judul">
+                    Are getting married
+                </p>
+
+                <p class="hero__tanggal">
+                    04 OKTOBER 2026
+                </p>
+
+                <p class="hero__lokasi">
+                    Gedung Serbaguna Wirabrata
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             PASANGAN
+        ========================== -->
+        <section class="pasangan">
+
+            <div class="pasangan__foto-wrap">
+
+                <img 
+                    class="pasangan__foto" 
+                    src="./img/isi.webp" 
+                    alt="Foto Amel & Ridwan"
+                >
+
+            </div>
+
+            <div class="pasangan__konten">
+
+                <p class="pasangan__label">
+                    The Wedding Of
+                </p>
+
+                <h2 class="pasangan__nama">
+                    Amel &amp; Ridwan
+                </h2>
+
+                <div class="pasangan__garis"></div>
+
+                <p class="pasangan__teks">
+                    Dengan penuh syukur kepada Tuhan Yang Maha Esa, kami
+                    mengundang Bapak/Ibu/Saudara/i untuk hadir dan
+                    memberikan doa restu dalam acara pernikahan kami.
+                </p>
+
+                <p class="pasangan__lokasi">
+                    Gedung Serbaguna Wirabrata<br>
+                    Jl. Raya Cikampek-Parakan, Cikampek Utara,
+                    Kec. Kotabaru, Karawang, Jawa Barat
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             RSVP
+        ========================== -->
+        <section class="detail">
+
+            <img 
+                class="detail__latar" 
+                src="./img/BACKGROUND-2.webp" 
+                alt="Background"
+            >
+
+            <a href="rsvp.html" class="detail__link">
+
+                <img 
+                    class="detail__bingkai" 
+                    src="./img/OPEN AMPLOP.webp" 
+                    alt="Buka RSVP"
+                >
+
+            </a>
+
+        </section>
+
+
+        <section class="hitung-mundur">
+
+            <h2 class="hitung-mundur__judul">
+                The countdown is on!
+            </h2>
+
+            <div 
+                class="hitung-mundur__waktu" 
+                id="hitungMundur"
+            >
+
+                <div class="hitung-mundur__satuan">
+
+                    <span 
+                        class="hitung-mundur__angka" 
+                        id="hari"
+                    >
+                        00
+                    </span>
+
+                    <span class="hitung-mundur__label">
+                        Days
+                    </span>
+
+                </div>
+
+                <span class="hitung-mundur__titik">:</span>
+
+
+                <div class="hitung-mundur__satuan">
+
+                    <span 
+                        class="hitung-mundur__angka" 
+                        id="jam"
+                    >
+                        00
+                    </span>
+
+                    <span class="hitung-mundur__label">
+                        Hours
+                    </span>
+
+                </div>
+
+                <span class="hitung-mundur__titik">:</span>
+
+
+                <div class="hitung-mundur__satuan">
+
+                    <span 
+                        class="hitung-mundur__angka" 
+                        id="menit"
+                    >
+                        00
+                    </span>
+
+                    <span class="hitung-mundur__label">
+                        Minutes
+                    </span>
+
+                </div>
+
+                <span class="hitung-mundur__titik">:</span>
+
+
+                <div class="hitung-mundur__satuan">
+
+                    <span 
+                        class="hitung-mundur__angka" 
+                        id="detik"
+                    >
+                        00
+                    </span>
+
+                    <span class="hitung-mundur__label">
+                        Seconds
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================
+             OUR STORY
+        ========================== -->
+        <section class="cerita-kami">
+
+            <a 
+                href="love-story.html" 
+                class="cerita-kami__tautan"
+            >
+
+                <img 
+                    class="cerita-kami__bingkai" 
+                    src="./img/isii.webp" 
+                    alt="Cerita Amel & Ridwan"
+                >
+
+            </a>
+
+            <span class="cerita-kami__judul">
+                Our Story
+            </span>
+
+        </section>
+
+
+        <!-- =========================
+             DETAIL ACARA
+        ========================== -->
+        <section class="the-details">
+
+            <img 
+                class="the-details__latar" 
+                src="./img/BACKGROUND-2.webp" 
+                alt="Background Detail Acara"
+            >
+
+            <a href="detail.html">
+
+                <img 
+                    class="the-details__bingkai" 
+                    src="./img/DETAIL-1.webp" 
+                    alt="Detail Acara"
+                >
+
+            </a>
+
+        </section>
+
+
+        <!-- =========================
+             HADIAH
+        ========================== -->
+        <section class="hadiah">
+
+            <div class="hadiah__kartu">
+
+                <div class="hadiah__atas">
+
+                    <span class="hadiah__bank">
+                        BRI
+                    </span>
+
+                    <i class="hadiah__ikon"></i>
+
+                </div>
+
+
+                <p 
+                    class="hadiah__nomor" 
+                    id="noRekening"
+                >
+                    7222 0101 4834 535
+                </p>
+
+
+                <div class="hadiah__bawah">
+
+                    <div>
+
+                        <p class="hadiah__label">
+                            Nama Pemilik
+                        </p>
+
+                        <p class="hadiah__nama">
+                            Muhammad Ridwan
+                        </p>
+
+                    </div>
+
+
+                    <button 
+                        type="button" 
+                        class="hadiah__salin" 
+                        id="salinRekening"
+                    >
+                        Salin
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="./js/generator.js"></script>
+    <script src="./js/style.js"></script>
+
+</body>
+</html>

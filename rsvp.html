@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RSVP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Alex+Brush&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./style/rsvp.css">
+</head>
+<body>
+
+<div class="card">
+  <a href="index.html" class="nav"><span>&lsaquo;</span> Kembali</a>
+
+  <div id="formView">
+    <div class="hero"><h1>Rsvp</h1></div>
+
+    <div class="ornament">
+      <img src="./img/cincin.webp" alt="Ornamen hati" class="ornament-img">
+    </div>
+
+    <p class="intro">Kami akan sangat senang jika Anda menjadi bagian dari perayaan kami! Silakan isi formulir di bawah ini untuk memberi tahu kami kehadiran Anda.</p>
+
+    <p class="deadline">Mohon Konfirmasi Sebelum 22 Juni 2027</p>
+
+    <form id="rsvpForm">
+      <div class="field">
+        <label for="guestName">Nama Anda</label>
+        <input type="text" id="guestName" name="guestName" required autocomplete="name">
+      </div>
+
+      <div class="field">
+        <div class="field-label-group">Apakah Anda akan hadir di pernikahan kami?</div>
+        <div class="option-group" id="attendanceGroup">
+          <button type="button" class="option" data-value="Hadir dengan senang hati">Hadir dengan senang hati</button>
+          <button type="button" class="option" data-value="Mohon maaf belum bisa hadir">Mohon maaf belum bisa hadir</button>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="wishMessage">Ucapan &amp; Doa</label>
+        <textarea id="wishMessage" name="wishMessage" placeholder="Tuliskan ucapan selamat dan doa terbaik Anda..." required></textarea>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">Kirim RSVP</button>
+      <div class="status-msg" id="statusMsg"></div>
+      <p class="footnote">Data Anda hanya digunakan untuk keperluan acara ini.</p>
+    </form>
+  </div>
+
+  <div class="success-view" id="successView">
+    <div class="ornament">
+      <img src="./img/cincin.webp" alt="Ornamen hati" class="ornament-img">
+    </div>
+    <h2>Terima kasih</h2>
+    <p>RSVP Anda telah kami terima.<br>Sampai jumpa di hari bahagia kami!</p>
+  </div>
+
+  <a href="index.html" class="bottom-nav"><span>&lsaquo;</span> Kembali</a>
+</div>
+
+<script>
+  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzGU5N76HrEd8nBZ1afu3ziHk5Vh714BPPPqog32EwmPGsLkx5duNzKPJnNq5vFLB9ybA/exec";
+
+  const attendanceGroup = document.getElementById('attendanceGroup');
+  let selectedAttendance = "";
+
+  attendanceGroup.addEventListener('click', (e) => {
+    const btn = e.target.closest('.option');
+    if(!btn) return;
+    [...attendanceGroup.children].forEach(c => c.classList.remove('selected'));
+    btn.classList.add('selected');
+    selectedAttendance = btn.dataset.value;
+  });
+
+  const form = document.getElementById('rsvpForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const statusMsg = document.getElementById('statusMsg');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    statusMsg.classList.remove('show','ok','err');
+
+    const name = document.getElementById('guestName').value.trim();
+    const wish = document.getElementById('wishMessage').value.trim();
+
+    if(!name || !selectedAttendance || !wish){
+      statusMsg.textContent = "Mohon lengkapi nama, kehadiran, dan ucapan terlebih dahulu.";
+      statusMsg.classList.add('show','err');
+      return;
+    }
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Mengirim...";
+
+    const payload = {
+      name: name,
+      attendance: selectedAttendance,
+      message: wish,
+      timestamp: new Date().toISOString()
+    };
+
+    try{
+      await fetch(SCRIPT_URL, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify(payload)
+      });
+
+      document.getElementById('formView').style.display = "none";
+      document.getElementById('successView').classList.add('show');
+
+    } catch(err){
+      statusMsg.textContent = "Gagal mengirim. Periksa koneksi atau coba lagi. (" + err.message + ")";
+      statusMsg.classList.add('show','err');
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Kirim RSVP";
+    }
+  });
+</script>
+
+</body>
+</html>

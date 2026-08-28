@@ -1,0 +1,125 @@
+:root{
+    --krem: #fef8ee;
+    --krem-redup: #e6dcc4;
+    --tinta: #2c1810;
+    --tinta-redup: #a99b7f;
+    --tinta-teks: #6b5847;
+    --naskah: Georgia, serif;
+}
+
+*{ box-sizing: border-box; }
+
+body{ margin: 0; font-family: var(--naskah); }
+
+body{ margin: 0; font-family: var(--naskah); background: var(--krem); }
+
+.acara{
+    background: var(--krem);
+    padding: 48px 28px;
+    max-width: 480px;
+    min-height: 100vh;
+    margin: 0 auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.acara__eyebrow{
+    margin: 0 0 40px;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--tinta-redup);
+}
+
+.acara__garis{
+    position: relative;
+    text-align: left;
+}
+
+.acara__item{ position: relative; }
+
+.acara__waktu-baris{
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 10px;
+}
+
+.acara__waktu{
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--tinta-redup);
+    white-space: nowrap;
+}
+
+.acara__garis-samping{
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--krem-redup), transparent);
+}
+
+.acara__nama-acara{
+    margin: 0 0 6px;
+    font-weight: 400;
+    font-size: 26px;
+    letter-spacing: 0.02em;
+    color: var(--tinta);
+}
+
+.acara__tanggal{
+    margin: 0 0 10px;
+    font-size: 12.5px;
+    color: var(--tinta-teks);
+}
+
+.acara__lokasi{
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.8;
+    color: var(--tinta-redup);
+}
+
+.acara__pemisah{
+    width: 30px;
+    height: 1px;
+    background: var(--krem-redup);
+    margin: 0 0 44px;
+}
+
+.acara__peta{
+    display: inline-block;
+    margin-top: 44px;
+    padding: 13px 36px;
+    font-size: 10.5px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--tinta);
+    background: transparent;
+    border: 1px solid var(--tinta);
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.acara__peta:hover{
+    background: var(--tinta);
+    color: var(--krem);
+}
+
+.acara__kembali{
+    display: inline-block;
+    margin-bottom: 40px;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--tinta-teks);
+    text-decoration: none;
+}
+.acara__kembali:hover{ color: var(--tinta); }
+
+.acara__kembali--bawah{
+    margin-top: 32px;
+    margin-bottom: 0;
+}
