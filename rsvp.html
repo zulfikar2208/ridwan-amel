@@ -10,9 +10,10 @@
 <link rel="stylesheet" href="./style/rsvp.css">
 </head>
 <body>
-<audio id="musikLatar" src="./audio/nadin.mp3" loop></audio>
 <div class="card">
-  <a href="index.html" class="nav"><span>&lsaquo;</span> Kembali</a>
+<a href="#" onclick="parent.tutupHalaman(); return false;" class="nav">
+    <span>&lsaquo;</span> Kembali
+</a>
 
   <div id="formView">
     <div class="hero"><h1>Rsvp</h1></div>
@@ -58,8 +59,9 @@
     <p>RSVP Anda telah kami terima.<br>Sampai jumpa di hari bahagia kami!</p>
   </div>
 
-  <a href="index.html" class="bottom-nav"><span>&lsaquo;</span> Kembali</a>
-</div>
+<a href="#" onclick="parent.tutupHalaman(); return false;" class="nav">
+    <span>&lsaquo;</span> Kembali
+</a></div>
 
 <script>
   const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzGU5N76HrEd8nBZ1afu3ziHk5Vh714BPPPqog32EwmPGsLkx5duNzKPJnNq5vFLB9ybA/exec";

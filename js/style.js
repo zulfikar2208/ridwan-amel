@@ -627,4 +627,401 @@ const TARGET_TANGGAL = new Date("2026-10-04T09:00:00+07:00").getTime();
         1000
     );
 
+
+    // =====================================================
+    // ANIMASI ELEMEN SAAT DI-SCROLL
+    // =====================================================
+
+    let sudahScroll = false;
+
+    const fadeDownElements = document.querySelectorAll(
+        ".hero__konten, " +
+        ".pasangan__foto-wrap, .pasangan__konten, " +
+        ".detail-acara__judul, .detail-acara__item, .detail-acara__maps, " +
+        ".cerita-kami__bingkai, .cerita-kami__judul, " +
+        ".ls-entry, " +
+        ".rsvp__info, .rsvp__form, .rsvp__note, " +
+        ".gift-label, .gift-card, .gift-closing, .gift-footer-logo, " +
+        ".hitung-mundur__judul, .hitung-mundur__waktu"
+    );
+
+    const fadeDownObserver =
+        new IntersectionObserver(
+            function (entries, observer) {
+
+                if (!sudahScroll) return;
+
+                entries.forEach(function (entry) {
+
+                    if (!entry.isIntersecting) return;
+
+                    entry.target.classList.add("is-visible");
+                    observer.unobserve(entry.target);
+
+                });
+
+            },
+            {
+                threshold: 0.15,
+                rootMargin: "0px 0px -8% 0px"
+            }
+        );
+
+    fadeDownElements.forEach(function (element) {
+        element.classList.add("fade-down");
+        fadeDownObserver.observe(element);
+    });
+
+    // Konten hero langsung terlihat tanpa menunggu scroll.
+    document.querySelectorAll(".hero .fade-down")
+        .forEach(function (element) {
+            element.classList.add("is-visible");
+        });
+
+    window.addEventListener(
+        "scroll",
+        function () {
+            sudahScroll = true;
+
+            fadeDownElements.forEach(function (element) {
+                const posisi = element.getBoundingClientRect();
+                const terlihat =
+                    posisi.top < window.innerHeight * 0.85 &&
+                    posisi.bottom > window.innerHeight * 0.08;
+
+                if (terlihat) {
+                    element.classList.add("is-visible");
+                    fadeDownObserver.unobserve(element);
+                }
+            });
+        },
+        { once: true, passive: true }
+    );
+
+
+    // =====================================================
+    // TOGGLE CARD YANG BISA MEMANJANG (EXPAND / COLLAPSE)
+    // =====================================================
+
+    document.querySelectorAll(".card-embed").forEach(function (card) {
+
+        const trigger =
+            card.querySelector(".card-embed__trigger");
+
+        const panel =
+            card.querySelector(".card-embed__panel");
+
+        const tombolTutup =
+            card.querySelector(".card-embed__close");
+
+
+        function bukaPanel() {
+
+            panel.classList.add("is-open");
+
+            trigger.setAttribute(
+                "aria-expanded",
+                "true"
+            );
+
+            setTimeout(function () {
+
+                card.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start"
+                });
+
+            }, 150);
+
+        }
+
+
+        function tutupPanel() {
+
+            panel.classList.remove("is-open");
+
+            trigger.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+        }
+
+
+        if (trigger) {
+
+            trigger.addEventListener(
+                "click",
+                function (e) {
+
+                    e.preventDefault();
+
+                    const sedangTerbuka =
+                        panel.classList.contains(
+                            "is-open"
+                        );
+
+                    sedangTerbuka ?
+                        tutupPanel() :
+                        bukaPanel();
+
+                }
+            );
+
+        }
+
+
+        if (tombolTutup) {
+
+            tombolTutup.addEventListener(
+                "click",
+                function (e) {
+
+                    e.preventDefault();
+
+                    tutupPanel();
+
+                }
+            );
+
+        }
+
+    });
+
+
+    // =====================================================
+    // FORM RSVP (KIRIM KE GOOGLE APPS SCRIPT)
+    // =====================================================
+
+    const SCRIPT_URL_RSVP =
+        "https://script.google.com/macros/s/AKfycbzGU5N76HrEd8nBZ1afu3ziHk5Vh714BPPPqog32EwmPGsLkx5duNzKPJnNq5vFLB9ybA/exec";
+
+    const attendanceGroup =
+        document.querySelector(".rsvp__attendance");
+
+    const attendanceInput =
+        document.getElementById("attendance");
+
+    let selectedAttendance =
+        attendanceInput?.value ||
+        attendanceGroup?.querySelector(".rsvp__option.active")?.dataset.value ||
+        "";
+
+
+    if (attendanceGroup) {
+
+        attendanceGroup.addEventListener(
+            "click",
+            function (e) {
+
+                const tombol =
+                    e.target.closest(".rsvp__option");
+
+                if (!tombol || !attendanceGroup.contains(tombol)) return;
+
+                [...attendanceGroup.children].forEach(
+                    function (c) {
+                        c.classList.remove("active");
+                    }
+                );
+
+                tombol.classList.add("active");
+
+                selectedAttendance =
+                    tombol.dataset.value;
+
+                if (attendanceInput) {
+                    attendanceInput.value = selectedAttendance;
+                }
+
+            }
+        );
+
+    }
+
+
+    const formRsvp =
+        document.getElementById("rsvpForm");
+
+    const tombolKirimRsvp =
+        document.getElementById("submitBtn");
+
+    const pesanStatusRsvp =
+        document.getElementById("statusMsg");
+
+
+    if (formRsvp) {
+
+        formRsvp.addEventListener(
+            "submit",
+            async function (e) {
+
+                e.preventDefault();
+
+                pesanStatusRsvp.classList.remove(
+                    "show",
+                    "ok",
+                    "err"
+                );
+
+                const nama =
+                    document.getElementById("guestName")
+                        .value.trim();
+
+                const ucapan =
+                    document.getElementById("wishMessage")
+                        .value.trim();
+
+
+                if (!nama || !selectedAttendance || !ucapan) {
+
+                    pesanStatusRsvp.textContent =
+                        "Mohon lengkapi nama, kehadiran, dan ucapan terlebih dahulu.";
+
+                    pesanStatusRsvp.classList.add(
+                        "show",
+                        "err"
+                    );
+
+                    return;
+
+                }
+
+
+                tombolKirimRsvp.disabled = true;
+
+                tombolKirimRsvp.textContent =
+                    "Mengirim...";
+
+
+                const dataKirim = {
+                    name: nama,
+                    attendance: selectedAttendance,
+                    message: ucapan,
+                    timestamp: new Date().toISOString()
+                };
+
+
+                try {
+
+                    await fetch(
+                        SCRIPT_URL_RSVP,
+                        {
+                            method: "POST",
+                            mode: "no-cors",
+                            headers: {
+                                "Content-Type":
+                                    "text/plain;charset=utf-8"
+                            },
+                            body: JSON.stringify(dataKirim)
+                        }
+                    );
+
+                    pesanStatusRsvp.textContent =
+                        "RSVP berhasil dikirim.";
+
+                    pesanStatusRsvp.classList.add(
+                        "show",
+                        "ok"
+                    );
+
+                    formRsvp.reset();
+                    selectedAttendance = "";
+
+                    if (attendanceInput) {
+                        attendanceInput.value = "";
+                    }
+
+                } catch (error) {
+
+                    pesanStatusRsvp.textContent =
+                        "Gagal mengirim. Periksa koneksi atau coba lagi. (" +
+                        error.message + ")";
+
+                    pesanStatusRsvp.classList.add(
+                        "show",
+                        "err"
+                    );
+
+                    tombolKirimRsvp.disabled = false;
+
+                    tombolKirimRsvp.textContent =
+                        "Kirim RSVP";
+
+                }
+
+            }
+        );
+
+    }
+
 });
+
+// Wedding Gift Section - Salin Nomor Rekening
+// Kompatibel dengan iOS Safari, Android Chrome, dan browser desktop.
+
+function salinRekening() {
+  const rekEl = document.getElementById('rekNumber');
+  const btn = document.getElementById('copyBtn');
+  const nomor = rekEl.innerText.replace(/\s/g, '');
+
+  copyTeks(nomor)
+    .then(() => tampilkanSukses(btn))
+    .catch(() => {
+      // Jika semua metode gagal, minta pengguna menyalin manual
+      alert('Nomor rekening: ' + nomor + '\n\nSilakan salin secara manual.');
+    });
+}
+
+function copyTeks(teks) {
+  // Metode 1: Clipboard API modern (didukung Android Chrome, iOS Safari 13.4+, desktop)
+  // Hanya berjalan di konteks aman (HTTPS) atau localhost.
+  if (navigator.clipboard && window.isSecureContext) {
+    return navigator.clipboard.writeText(teks);
+  }
+
+  // Metode 2: Fallback pakai elemen input sementara + execCommand
+  // Diperlukan untuk iOS Safari versi lama / halaman non-HTTPS.
+  return new Promise((resolve, reject) => {
+    try {
+      const input = document.createElement('input');
+      input.value = teks;
+      input.setAttribute('readonly', '');
+      input.classList.add('gift-copy-fallback-input');
+      document.body.appendChild(input);
+
+      const isIOS = /iP(hone|ad|od)/.test(navigator.userAgent);
+
+      if (isIOS) {
+        // iOS butuh setSelectionRange, bukan select() biasa
+        input.contentEditable = true;
+        input.readOnly = false;
+        const range = document.createRange();
+        range.selectNodeContents(input);
+        const selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        input.setSelectionRange(0, teks.length);
+      } else {
+        input.select();
+      }
+
+      const berhasil = document.execCommand('copy');
+      document.body.removeChild(input);
+
+      berhasil ? resolve() : reject(new Error('execCommand gagal'));
+    } catch (err) {
+      reject(err);
+    }
+  });
+}
+
+function tampilkanSukses(btn) {
+  const teksAsli = btn.innerText;
+  btn.innerText = 'Berhasil disalin!';
+  btn.classList.add('copied');
+  setTimeout(() => {
+    btn.innerText = teksAsli;
+    btn.classList.remove('copied');
+  }, 2000);
+}

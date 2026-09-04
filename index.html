@@ -5,14 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- OPEN GRAPH / PREVIEW WHATSAPP -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="The Wedding of Amel & Ridwan">
     <meta property="og:description" content="Undangan Pernikahan Amel & Ridwan">
     <meta property="og:image" content="https://ridwan-amel.vercel.app/img/preview.webp">
     <meta property="og:url" content="https://ridwan-amel.vercel.app/">
 
-    <!-- TWITTER -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="The Wedding of Amel & Ridwan">
     <meta name="twitter:description" content="Undangan Pernikahan Amel & Ridwan">
@@ -20,6 +18,11 @@
 
     <link rel="stylesheet" href="./style/index.css">
     <link rel="stylesheet" href="./style/animasi.css">
+    <link rel="stylesheet" href="./style/embed.css"
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Alex+Brush&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <title>Amel & Ridwan</title>
 </head>
@@ -36,6 +39,7 @@
                 <div class="cover-text">
                     <p class="top-text">THE WEDDING OF</p>
                     <h1>Amel &amp; Ridwan</h1>
+
                 </div>
 
                 <!-- AMPLOP -->
@@ -78,11 +82,13 @@
             preload="auto"
         ></audio>
 
+        <div id="pageContainer"></div>
+
 
         <!-- =========================
              HERO
         ========================== -->
-        <section class="hero">
+        <section class="hero" id="hero">
 
             <img 
                 class="hero__latar" 
@@ -115,7 +121,6 @@
             </div>
 
         </section>
-
 
         <!-- =========================
              PASANGAN
@@ -160,35 +165,76 @@
 
         </section>
 
-
         <!-- =========================
-             RSVP
+             DETAIL ACARA
         ========================== -->
-        <section class="detail">
+        <section class="detail-acara">
 
-            <img 
-                class="detail__latar" 
-                src="./img/BACKGROUND-2.webp" 
-                alt="Background"
+            <p class="detail-acara__judul">
+                DETAIL ACARA
+            </p>
+
+
+            <article class="detail-acara__item">
+                
+                <h2 class="detail-acara__nama">
+                    Akad Nikah
+                </h2>
+                <p class="detail-acara__jam">
+                    09.00 WIB
+                </p>
+
+
+                <p class="detail-acara__tanggal">
+                    Minggu, 4 Oktober 2026
+                </p>
+
+                <p class="detail-acara__lokasi">
+                    Gedung Serbaguna Wirabrata<br>
+                    Jl. Raya Cikampek-Parakan, Karawang
+                </p>
+
+            </article>
+
+
+            <article class="detail-acara__item">
+                
+                <h2 class="detail-acara__nama">
+                    Resepsi Pernikahan
+                </h2>
+                <p class="detail-acara__jam">
+                    11.00 WIB
+                </p>
+
+
+                <p class="detail-acara__tanggal">
+                    Minggu, 4 Oktober 2026
+                </p>
+
+                <p class="detail-acara__lokasi">
+                    Gedung Serbaguna Wirabrata<br>
+                    Jl. Raya Cikampek-Parakan, Karawang
+                </p>
+
+            </article>
+
+
+            <a
+                href="https://maps.app.goo.gl/BNoYxcXxL6wv4bES8"
+                target="_blank"
+                rel="noopener"
+                class="detail-acara__maps"
             >
-
-            <a href="rsvp.html" class="detail__link">
-
-                <img 
-                    class="detail__bingkai" 
-                    src="./img/OPEN AMPLOP.webp" 
-                    alt="Buka RSVP"
-                >
-
+                BUKA LOKASI DI MAPS
             </a>
 
-        </section>
 
+        </section>
 
         <section class="hitung-mundur">
 
             <h2 class="hitung-mundur__judul">
-                The countdown is on!
+        The countdown is on!
             </h2>
 
             <div 
@@ -273,100 +319,41 @@
         <!-- =========================
              OUR STORY
         ========================== -->
-        <section class="cerita-kami">
-
-            <a 
-                href="love-story.html" 
-                class="cerita-kami__tautan"
-            >
+        <section class="cerita-kami card-embed" id="cardStory">
 
                 <img 
                     class="cerita-kami__bingkai" 
-                    src="./img/isii.webp" 
+                    src="./img/story.webp" 
                     alt="Cerita Amel & Ridwan"
                 >
 
-            </a>
-
-            <span class="cerita-kami__judul">
+            <span class="cerita-kami__judul card-embed__trigger-label" aria-hidden="true">
                 Our Story
             </span>
 
-        </section>
+            <div class=" story-embed" id="panelStory">
+                <div class="ls-card">
 
 
-        <!-- =========================
-             DETAIL ACARA
-        ========================== -->
-        <section class="the-details">
 
-            <img 
-                class="the-details__latar" 
-                src="./img/BACKGROUND-2.webp" 
-                alt="Background Detail Acara"
-            >
+                    <div class="ls-timeline">
 
-            <a href="detail.html">
+                        <article class="ls-entry">
+                            <h2 class="ls-entry__date">Ramadhan 1446 H</h2>
+                            <p class="ls-entry__text">Pernah berada di bawah atap yang sama bertahun-tahun lamanya, satu sapaan sederhana justru menjadi awal dari cerita yang tak pernah direncanakan. Kenyamanan hadir begitu alami, dan ketenangan tumbuh tanpa perlu dipaksa. Takdir memilih waktunya sendiri untuk saling mempertemukan.</p>
+                        </article>
 
-                <img 
-                    class="the-details__bingkai" 
-                    src="./img/DETAIL-1.webp" 
-                    alt="Detail Acara"
-                >
+                        <article class="ls-entry">
+                            <h2 class="ls-entry__date">28 Juni 2026</h2>
+                            <p class="ls-entry__text">Kebersamaan ini tak hadir dengan riuh yang meledak-ledak. Ia tumbuh dengan tenang, penuh rasa aman dan kehangatan—sebuah keberanian yang akhirnya menghantarkan dua keluarga saling mendekap, menyimpul janji dalam ikatan khitbah.</p>
+                        </article>
 
-            </a>
-
-        </section>
-
-
-        <!-- =========================
-             HADIAH
-        ========================== -->
-        <section class="hadiah">
-
-            <div class="hadiah__kartu">
-
-                <div class="hadiah__atas">
-
-                    <span class="hadiah__bank">
-                        BRI
-                    </span>
-
-                    <i class="hadiah__ikon"></i>
-
-                </div>
-
-
-                <p 
-                    class="hadiah__nomor" 
-                    id="noRekening"
-                >
-                    7222 0101 4834 535
-                </p>
-
-
-                <div class="hadiah__bawah">
-
-                    <div>
-
-                        <p class="hadiah__label">
-                            Nama Pemilik
-                        </p>
-
-                        <p class="hadiah__nama">
-                            Muhammad Ridwan
-                        </p>
+                        <article class="ls-entry">
+                            <h2 class="ls-entry__date">4 Oktober 2026</h2>
+                            <p class="ls-entry__text">Hingga akhirnya, perjalanan doa-doa sunyi menemukan muaranya. Di hadapan semesta dan orang-orang terkasih, dua jiwa merajut ikrar suci untuk saling menggenggam—kini, besok, dan selamanya.</p>
+                        </article>
 
                     </div>
-
-
-                    <button 
-                        type="button" 
-                        class="hadiah__salin" 
-                        id="salinRekening"
-                    >
-                        Salin
-                    </button>
 
                 </div>
 
@@ -374,8 +361,129 @@
 
         </section>
 
-    </div>
+        <!-- =========================
+             RSVP
+        ========================== -->
+        <section class="rsvp">
 
+            <p class="rsvp__info">
+                MOHON KONFIRMASI SEBELUM 04 OKTOBER 2026
+            </p>
+
+            <form class="rsvp__form" id="rsvpForm">
+
+                <div class="rsvp__field">
+                    <label for="guestName">Nama Anda</label>
+
+                    <input
+                        type="text"
+                        id="guestName"
+                        name="guestName"
+                        autocomplete="name"
+                        required
+                    >
+                </div>
+
+
+                <div class="rsvp__field">
+
+                    <label>
+                        Apakah Anda akan hadir di pernikahan kami?
+                    </label>
+
+                    <div class="rsvp__attendance">
+
+                        <button
+                            type="button"
+                            class="rsvp__option active"
+                            data-value="Hadir dengan senang hati"
+                        >
+                            Hadir dengan senang hati
+                        </button>
+
+                        <button
+                            type="button"
+                            class="rsvp__option"
+                            data-value="Mohon maaf belum bisa hadir"
+                        >
+                            Mohon maaf belum bisa hadir
+                        </button>
+
+                    </div>
+
+                    <input
+                        type="hidden"
+                        id="attendance"
+                        name="attendance"
+                        value="Hadir dengan senang hati"
+                    >
+
+                </div>
+
+
+                <div class="rsvp__field">
+
+                    <label for="wishMessage">
+                        Ucapan &amp; Doa
+                    </label>
+
+                    <textarea
+                        id="wishMessage"
+                        name="wishMessage"
+                        placeholder="Tuliskan ucapan selamat dan doa terbaik Anda..."
+                        required
+                    ></textarea>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="rsvp__submit"
+                    id="submitBtn"
+                >
+                    KIRIM RSVP
+                </button>
+
+                <div
+                    class="rsvp__status"
+                    id="statusMsg"
+                    aria-live="polite"
+                ></div>
+
+            </form>
+
+
+            <p class="rsvp__note">
+                Data Anda hanya digunakan untuk keperluan acara ini.
+            </p>
+
+        </section>
+
+<section class="gift-section">
+  <div class="gift-label">Tanda Kasih</div>
+ 
+  <div class="gift-card">
+    <div class="gift-bank-logo">
+      <img src="./img/BRI_2025.webp" alt="Logo BRI">
+    </div>
+ 
+    <div class="gift-rekening-number" id="rekNumber">7222 0101 4834 535</div>
+    <div class="gift-owner-name">a.n. Muhammad Ridwan</div>
+ 
+    <button class="gift-copy-btn" onclick="salinRekening()" id="copyBtn">Salin Nomor</button>
+  </div>
+ 
+  <p class="gift-closing">
+    Doa restu Anda adalah karunia yang paling berarti bagi kami.
+  </p>
+
+    <div class="gift-footer-logo">
+        <img src="./img/logo.webp" alt="Logo BRI">
+    </div>
+</section>
+
+    </div>
 
     <!-- JAVASCRIPT -->
     <script src="./js/musik.js"></script>
